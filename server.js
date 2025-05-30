@@ -123,6 +123,28 @@ app.get("/google-drive", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+app.get("/oustandingvspaid", async (req, res) => {
+  const { contactId } = req.query;
+  if (!contactId) return res.status(400).json({ error: "Missing contactId" });
+
+  try {
+    await refreshAccessToken();
+    const result = await getContact(contactId, accessToken);
+    console.log('google-drive=======>', result);
+    const contact = result.data.contact;
+    if (!contact) return res.status(404).json({ error: "Contact not found" });
+    const outstanding = getField(contact.customFields, "aql4KeuH4mjDiWeZHUdP");
+    const paid = getField(contact.customFields, "xhcczBAHMGdfZnPNtzsm");
+
+  
+    res.json({ outstanding: outstanding, paid:paid});
+  } catch (err) {
+    console.error("Server error:", err.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 // 🔥 UPLOAD endpoint
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {

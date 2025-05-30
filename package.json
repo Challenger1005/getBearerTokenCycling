@@ -2,6 +2,9 @@
   "dependencies": {
     "axios": "^1.9.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "googleapis": "^149.0.0",
+    "multer": "^2.0.0"
   }
 }

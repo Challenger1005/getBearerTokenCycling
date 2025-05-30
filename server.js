@@ -12,7 +12,7 @@ let accessTokenExpiresAt = 0;
 // Your GHL OAuth credentials
 const CLIENT_ID = "68326a70642d282656e52d32-mb6t4zus";
 const CLIENT_SECRET = "2c23317c-6329-4735-9432-aa951210dec3";
-let refresh_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNvbnRhY3RzLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiXSwiY2xpZW50IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwidmVyc2lvbklkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwiY2xpZW50S2V5IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIn0sImlhdCI6MTc0ODU4MzQyMC4zNTUsImV4cCI6MTc4MDExOTQyMC4zNTUsInVuaXF1ZUlkIjoiOTdiZTk5ZTctNjQ0ZS00N2VjLThiYjAtZmYwNjdmYmFhMjYxIiwidiI6IjIifQ.E9dz0FD0iEUDW3meuwsOp60i7qaHxRG-FeWtZm0z-bUdJ91jCB2v4cMs7iskjS0J5l1sRTHrJi-JSlzqbWf1Txcy_VUbpTz8FpGvE8g4fVLKTJjmmvgIqzAmHOfLzUJCU4Mll0BNAPxlLG_zAeXTPIS2oWlHcKflN_ODCCTXyAqEEoEB9vVhaay0wRDeiDseRDSZuTI-BTAZPUNZ7wZJ4WVga826YyzawF-Sl5wbKW0Ne8QfTlxu9_BkNSyusAmyW_cIjNuQ89cFawHP9fryqFB8jeSlWhyq1oE9PYd_1mt6bTxYBEJx2XMPxPphC0K_ojkfVuJp0qtuOo7bYR0lfXkSmaZ9ulBgXLes3jaqVgl7K5E_dn-zm5xBgJvhX-ZGefMBS-bwviKCPcJVYTLIZdOpcP9U5nT0cSp2Cyx4mZsmU1qjhDb-45vV8QReS2a0nQQvTjUJA31LmpNR9FqIUNaWn5ENabX9wpqUgF0H6N24ld2__HsLZo-gfi7Vry1tZwGciX-vMP_snbyBOgDp0QObTVm3iYVL1sHGMkw2gXtTYkrKT9zqynpM2HJ2JiXIbylIe5R_wB5QvvfGGjxD2ETeQpT-ROKvAUFATc4vGkxeHWOAvUTr7uOJS3Vl945BEen9nryP83yaL8RLj5I1ajux9yJvvxgV-iHYxrPtT8A";
+let refresh_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNvbnRhY3RzLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiXSwiY2xpZW50IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwidmVyc2lvbklkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwiY2xpZW50S2V5IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIn0sImlhdCI6MTc0ODU4ODc1Mi40MzYsImV4cCI6MTc4MDEyNDc1Mi40MzYsInVuaXF1ZUlkIjoiMjkxZjY1MTktMTdkOC00YTIwLTg1NDMtMTA3NjMxMDdkNWRiIiwidiI6IjIifQ.LGht02PSBJDgZ2txkA7K0LPz21XZoaDHMwL5xELl-hz1jJUBg_OULlJWds1F9fbWdXNII393-2AaukrAEuQuhM3bXt5yqh-aVxPj0tq7aWhC7hWQkEUs403dgt111pS31QS2sYh7AA6fow-p8lF7-Ei-Ax7B8ZZZGZuimAkl2IJ4amzGkAc0Pv2HZIhabjxw5GGGoL8TEceQq3VfBvoFl25qFa-C4EQ6BC9fH4RrAxzbETorZ9pF0uhhqrXpgBuIsqaQRgxuSKY04zJkIjSYjxp9SVgUEFY_qtG-N-wYJRGdqcsNwBLexklYGIm3LSCW-ieJvu4dL56BcozaljYidX2KTQLyhGjsF8KwA5MzJywwZRKMlsGSGqYxMx8BW--v5FjkTfwdItrm6819Z3igWE-rBGkh49luNBnt6Rr1S7-ir36dpF_QHRLjUzBlM6gQGjnHrf0nmiowWe4M0z4OZpwFIsQtV246xflo6ZUkjb9REKORuWp6wLvFR-H6RFG8VpFnFihLq8SbFj2Nd5OtGc58Qas_w0lHV-WyOkFensPNVvxIbFz0PUJtoIK1fy2azNGghsD8tKXJbqez9DdfW07Xr82CCJ0F_-_Fr9gHkTN2oRoP0GwTErZDN1Ced3BU9_uDJpYVYThOmCozbKJsDSeiA2-dMpxABfI3nDCU8H0";
 
 const LOCATION_ID = "GhzkVFpQlXpmPVmjkTr2";
 
@@ -44,8 +44,8 @@ async function refreshAccessToken() {
   }
 }
 
-refreshAccessToken(); // Immediately on startup
-setInterval(refreshAccessToken,   3600 * 23 * 1000); // Every 30 minutes
+// refreshAccessToken(); // Immediately on startup
+// setInterval(refreshAccessToken,   3600 * 23 * 1000); // Every 30 minutes
 
 async function getContact(contactId, token){
   const result = await axios.get(`https://services.leadconnectorhq.com/contacts/${contactId}`, {
@@ -66,7 +66,7 @@ app.get("/payment-plan", async (req, res) => {
   if (!contactId) return res.status(400).json({ error: "Missing contactId" });
 
   try {
-    // const token = await getAccessToken();
+     await refreshAccessToken();
     const result = await getContact(contactId, accessToken);
     console.log('payment-plan=======>', result);
     const contact = result.data.contact;
@@ -88,7 +88,7 @@ app.get("/google-drive", async (req, res) => {
   if (!contactId) return res.status(400).json({ error: "Missing contactId" });
 
   try {
-    // const token = await getAccessToken();
+     await refreshAccessToken();
     const result = await getContact(contactId, accessToken);
     console.log('google-drive=======>', result);
     const contact = result.data.contact;

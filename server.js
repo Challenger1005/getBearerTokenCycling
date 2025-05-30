@@ -66,7 +66,6 @@ app.get("/payment-plan", async (req, res) => {
 
   try {
     // const token = await getAccessToken();
-    console.log(token);
     const result = await getContact(contactId, accessToken);
     console.log(result);
     const contact = result.data.contact;

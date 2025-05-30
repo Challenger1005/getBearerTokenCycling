@@ -12,30 +12,39 @@ let accessTokenExpiresAt = 0;
 // Your GHL OAuth credentials
 const CLIENT_ID = "68326a70642d282656e52d32-mb6t4zus";
 const CLIENT_SECRET = "2c23317c-6329-4735-9432-aa951210dec3";
-const REFRESH_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNvbnRhY3RzLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiXSwiY2xpZW50IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwidmVyc2lvbklkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwiY2xpZW50S2V5IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIn0sImlhdCI6MTc0ODU2MDE1MC41ODksImV4cCI6MTc4MDA5NjE1MC41ODksInVuaXF1ZUlkIjoiNGQ4NDBiYzAtZWRlNi00NGZmLTg4OTYtYzUxM2Q2MzBiMzZkIiwidiI6IjIifQ.Zlf5QG0yfXzzC1AtRxjVbQXT04w9oKQckn5d5Q74es5LlNBBSze7h4KZvVhCyo3dWZbBZCDORVTHLq_JaBb-G1R5rdNhCuBfwg8I_vpfZMKslo3pFTqZThLIc04fZJUXs5X1kLAcDPxSA2wqgXaI0Kf3S2KWX_S4Sthm8fhTti5vVriAuuKenG_3zppNAgEhr1Ob0SH5SybXO5Zzo9fl0SVDxpVMSjFuyIfsUmOCbol9VVPzGcuwEFwQCBhuawGFbScxdytvls3enKWt_jN26XtZ5EpJg2kgx6sstjQScaH9fRG4Tz-KSa3wCPPyK4yczFMxqzTsNbonwKM3rZjmRrXXt4KGH5Nmjod3qPwDwJk0tP48DD6-s9ub6U47hO2K1R1zn1bsOy-RY4tKQWmLwvLUSCyIAoJrQlFP7dC3FV-uzmZYfURgHzYKRoY1DTGXGiaDJyO0bJpV-KIwT_4rwMqI3WyJKFgYbkwyZU7usdRTw5ZwBliBcQvGk57Z7DKjGDwx510wza-K9XrchawqYjiVi7APLqB8nJXys1BWuIIZEs2B8YgtR57m6uTxHLULancjWvKzoxlsNMVKO3x6YLHpNRs79t6VFwNzUlUsWHi858Wilp-Scu1XTK5DcrQpn2jE5HTcmkN4YgUJdr4pvyhzKseJNNsbk2JCpqzduxY";
+let refresh_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNvbnRhY3RzLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiXSwiY2xpZW50IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwidmVyc2lvbklkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwiY2xpZW50S2V5IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIn0sImlhdCI6MTc0ODU2NDE0MC44MjMsImV4cCI6MTc4MDEwMDE0MC44MjMsInVuaXF1ZUlkIjoiM2JjYjJiZjQtOGFlZC00ZjM5LTk5MzAtZjhlMGExODYyYjg1IiwidiI6IjIifQ.VWWdYia3blMC4aU80wtuxjJN-L7dyUDaY0cFVreOZcfJzyinaURAWhwgndsgPiq7mM5Tk3oKCyqft7NZbaOaZ_SMqPGsEqFjQOBxnPKa--AZ_bOxbBJRKWnd6h4quIAWXIb90sZeolaaMEdq7e_Nx8q0J8fwmQ07_pUB6enpDQm85q-AA_jW91IjSLm_Hf4oIJGg6sk4hbPcdYw3MTV_JZN1a7PvTbiParHUzl_Qf0TjmVmt5xE2PV7pseZ7eWTRdKyjB3zzA2ITYeKcSYE7n3-ffLulubaimvKBEooay_5XYIJSaFxeBpDS2Y2F6U9VDnk1G15CvYaEXhyisoBYxPnVvCT8O897O2RrQQx-5RhjyZT-R5WuSmSioEouE4j32rX2hDX8OdCUYEnl3GUjYKQYzo1PATK3LAR6ekp4JMKR0CKQ2IYXPniBNEvUmTOeQim72cXGSRYtVNQoX56dPO5y6YbcO_8_OheJ388K2bgU9f4G63h42Gvti2KlvTKUobpuQUEj8Z3lihvJB5FJqCegXGJKXsHWzA_IV8iltFy337mmIE-yr-Q2OJrJgoRB1CZd00W-Vg72BwpqN9IdhXvLkveayTWWU1XYdgRE_5Q-93c9dMbE47tb591yFJ6TQDZ2hZPlYvCDFzypWP4NwVxqY4sZUM3-3L2Vdqwtii8";
 
 const LOCATION_ID = "GhzkVFpQlXpmPVmjkTr2";
 
 // Get a fresh access token using the refresh token
-async function getAccessToken() {
-  const now = Date.now();
-  if (accessToken && accessTokenExpiresAt > now) return accessToken;
+async function refreshAccessToken() {
+  try {
+    const { data } = await axios.post(
+      "https://services.leadconnectorhq.com/oauth/token",
+      {
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        grant_type: "refresh_token",
+        refresh_token: refresh_token,
+      },
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    );
 
-  const { data } = await axios.post("https://services.leadconnectorhq.com/oauth/token", {
-    client_id: CLIENT_ID,
-    client_secret: CLIENT_SECRET,
-    grant_type: "refresh_token",
-    refresh_token: REFRESH_TOKEN,
-  }, {
-    headers:{
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
-  });
+    accessToken = data.access_token;
+    refresh_token = data.refresh_token;
+    accessTokenExpiresAt = Date.now() + 1000 * 1000 - 30000;
 
-  accessToken = data.access_token;
-  accessTokenExpiresAt = now + 3600 * 1000 - 30000; // buffer of 30s
-  return accessToken;
+    console.log("✅ Access token refreshed.");
+  } catch (err) {
+    console.error("❌ Failed to refresh access token:", err.response?.data || err);
+  }
 }
+refreshAccessToken(); // Immediately on startup
+setInterval(refreshAccessToken, 30 * 60 * 1000); // Every 30 minutes
 
 async function getContact(contactId, token){
   const result = await axios.get(`https://services.leadconnectorhq.com/contacts/${contactId}`, {
@@ -56,9 +65,9 @@ app.get("/payment-plan", async (req, res) => {
   if (!contactId) return res.status(400).json({ error: "Missing contactId" });
 
   try {
-    const token = await getAccessToken();
+    // const token = await getAccessToken();
     console.log(token);
-    const result = await getContact(contactId, token);
+    const result = await getContact(contactId, accessToken);
     console.log(result);
     const contact = result.data.contact;
     if (!contact) return res.status(404).json({ error: "Contact not found" });
@@ -79,8 +88,8 @@ app.get("/google-drive", async (req, res) => {
   if (!contactId) return res.status(400).json({ error: "Missing contactId" });
 
   try {
-    const token = await getAccessToken();
-    const result = await getContact(contactId, token);
+    // const token = await getAccessToken();
+    const result = await getContact(contactId, accessToken);
 
     const contact = result.data.contact;
     if (!contact) return res.status(404).json({ error: "Contact not found" });

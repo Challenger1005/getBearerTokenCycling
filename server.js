@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
-let accessToken = null;
+let accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNvbnRhY3RzLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiXSwiY2xpZW50IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwidmVyc2lvbklkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwiY2xpZW50S2V5IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIn0sImlhdCI6MTc0ODYwNTA4My4zNjksImV4cCI6MTc0ODY5MTQ4My4zNjl9.Kur4MTSBLnCMKNB8s90JOB9pliIbVGB1bbFkaVvsCucSH65NSIqbEN4Z7iDXv_nI6B19bK-OoJtxqlsjGcmB0mcETG299JD2nooVPk5lw-s-CjCUXMJmimHI7Rmc_8PsPampJrDBuvyGS7zmPS4sCNGsU6rDYG4AdvlMpDGEFm9uid1bfiRIJraTmA5ZJGKZc7CYDHagjchS88fpkCLamGAuDLPLdOrUxPLhtxfLFqXsCWG0ypq2KMB-qFcRFpYynvMFjtw9L2cmAo3pjQvbMFcVajUl-uLecdxdl_9I1IK_NDqe7DHQfRwVh0VSloJy0oVBCVUPyiJIwzmvRMHj4jdp3xE4HTZdIPmXYcZHg2ls4fbAgzDQOfPbT5ht7UyruuDD2wTjH_gCrszP-lmdGI0umQMh4iq2vtTUZPwLrby02IJXWMkdmkFg5KzxJtZh_JOYhZxYzgL9PgJte5ZgLwV1utAJyOnCDxNppf0m8LCMueqpCmIRjY7XJgBKh6IDClHwGbLUZrsZb3BmdI3gkDXiGzI7D1AITb07fGKBuYSDujebOyFkVbYuoaiOUP_FUmjlMtHxqa6W6uNcBAedVAveFscUsPuzenrkGI-5TUsMKll3Yxs1Hz2sXm9Qcj0vd71Otj4QJJOyfoUzxtO3yJw-7KCxrMjCwtH0nSSdPoA";
 let accessTokenExpiresAt = 0;
 
 // Your GHL OAuth credentials
@@ -66,7 +66,7 @@ app.get("/payment-plan", async (req, res) => {
   if (!contactId) return res.status(400).json({ error: "Missing contactId" });
 
   try {
-     await refreshAccessToken();
+    //  await refreshAccessToken();
     const result = await getContact(contactId, accessToken);
     console.log('payment-plan=======>', result);
     const contact = result.data.contact;
@@ -88,7 +88,7 @@ app.get("/google-drive", async (req, res) => {
   if (!contactId) return res.status(400).json({ error: "Missing contactId" });
 
   try {
-     await refreshAccessToken();
+    //  await refreshAccessToken();
     const result = await getContact(contactId, accessToken);
     console.log('google-drive=======>', result);
     const contact = result.data.contact;

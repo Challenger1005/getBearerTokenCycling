@@ -5,28 +5,30 @@ const cors = require("cors");
 const { google } = require("googleapis");
 const fs = require("fs");
 const multer = require("multer");
+require('dotenv').config();
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
 app.use(cors());
 
+
 let accessToken = null;
 let accessTokenExpiresAt = 0;
 
 // Your GHL OAuth credentials
-const CLIENT_ID = "68326a70642d282656e52d32-mb6t4zus";
-const CLIENT_SECRET = "2c23317c-6329-4735-9432-aa951210dec3";
-let refresh_token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoQ2xhc3MiOiJMb2NhdGlvbiIsImF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJzb3VyY2UiOiJJTlRFR1JBVElPTiIsInNvdXJjZUlkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIiwiY2hhbm5lbCI6Ik9BVVRIIiwicHJpbWFyeUF1dGhDbGFzc0lkIjoiR2h6a1ZGcFFsWHBtUFZtamtUcjIiLCJvYXV0aE1ldGEiOnsic2NvcGVzIjpbImNvbnRhY3RzLndyaXRlIiwiY29udGFjdHMucmVhZG9ubHkiXSwiY2xpZW50IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwidmVyc2lvbklkIjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyIiwiY2xpZW50S2V5IjoiNjgzMjZhNzA2NDJkMjgyNjU2ZTUyZDMyLW1iNnQ0enVzIn0sImlhdCI6MTc0ODYxMjMxOS4zMjYsImV4cCI6MTc4MDE0ODMxOS4zMjYsInVuaXF1ZUlkIjoiYTQxZDI4ODgtZjgzMy00M2NiLTgxYjYtMWM4ODgyNjk2YWY0IiwidiI6IjIifQ.Hj661YP-44FNoydeHrwUswlbK63Ys2ICbuSI5WLXHnoMuq9EvtiQam_sEnS1eTBHeMQ9wuN6A2zY4gkS75y9usOYkXkt5Tukvs3i1z-KFum4KgvvbQlPMRPXKzg6_Y6iEX4A6_d36hPZkAoV5zYk_hfSRIdQfuaT3sjbrFtgIVQe6DK5b0HUrVpA6NiOX82J4IMoZVRTbNRtQYi1J5t5HSbvsa6rz88z52wikszZDrqz0zc7FitrZZgvCoiH9_Ozf5O8qRZ_0tOposQw-62E635EKTgFRatu1l5vjtI22pud0N8deqS0MITyyFkbMv05bErZiIXsHESryQp6AGPIivogjG7M8_uiOwUKgB3s1UhoggkBNiqfeuAxi1hHyDna40G6aqAJt9nILfo4Sk6fiCNqw741KtcpRYhM1vYg4Lj04fOSvHh-ZVQoi3xiOJTnIJEcyzUyr4q4B8OucjQcsjGbWbS6xZsWVyipqHEUno1Kn4aLoLn5O8Aix1tJABMQBGHSkQIAnmdIaU-8Aqm7T5ltix-5VHdTJR_a7izy5yp__bmOktXSPftLhWf57ZgGDkYPjdPCM_oXS963RBHxS0aOb6y_0MZU6Fd0lncz_e7rm1nYD0DqozC-PVIIVPSL1h3e3BF-fsQa8ge3UjF3gqkFWs_NjKEPO5RkwsSAOWI";
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;;
+let refresh_token = process.env.REFRESH_TOKEN;
 
 const LOCATION_ID = "GhzkVFpQlXpmPVmjkTr2";
 
 const oAuth2Client = new google.auth.OAuth2(
-  "1087978230353-j8kf0kbtpvmijj93il3ns0i8sb129ee9.apps.googleusercontent.com",
-  "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",
-  "https://developers.google.com/oauthplayground"
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
 );
 // Set your refresh token to get a valid access token
-oAuth2Client.setCredentials({ refresh_token: "1//04g9xeg9LJLATCgYIARAAGAQSNwF-L9IrPNDTZamkRcmVGb2qDQgN46algBQxvctkes1qCvJwnUt21OnzWmmfg-kW7Eq67UOkums" });
+oAuth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
 
 const drive = google.drive({ version: "v3", auth: oAuth2Client });
 

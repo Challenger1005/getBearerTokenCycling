@@ -136,9 +136,11 @@ app.get("/oustandingvspaid", async (req, res) => {
     if (!contact) return res.status(404).json({ error: "Contact not found" });
     const outstanding = getField(contact.customFields, "aql4KeuH4mjDiWeZHUdP");
     const paid = getField(contact.customFields, "xhcczBAHMGdfZnPNtzsm");
+    const minpayment = getField(contact.customFields, "zWkqy0y1ojtbE2M18JWF");
+    const paymentlink = getField(contact.customFields, "WkJePgVpmP168uEMvtiK");
 
   
-    res.json({ outstanding: outstanding, paid:paid});
+    res.json({ outstanding: outstanding, paid:paid, minpayment:minpayment, paymentlink:paymentlink });
   } catch (err) {
     console.error("Server error:", err.message);
     res.status(500).json({ error: "Internal server error" });

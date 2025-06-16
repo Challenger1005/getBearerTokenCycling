@@ -138,9 +138,10 @@ app.get("/oustandingvspaid", async (req, res) => {
     const paid = getField(contact.customFields, "xhcczBAHMGdfZnPNtzsm");
     const minpayment = getField(contact.customFields, "zWkqy0y1ojtbE2M18JWF");
     const paymentlink = getField(contact.customFields, "WkJePgVpmP168uEMvtiK");
+    const paidin30days = getField(contact.customFields, "6z81Tfv6DDryKLDwWZU2");
 
   
-    res.json({ outstanding: outstanding, paid:paid, minpayment:minpayment, paymentlink:paymentlink });
+    res.json({ outstanding: outstanding, paid:paid, minpayment:minpayment, paymentlink:paymentlink, paidin30days:paidin30days });
   } catch (err) {
     console.error("Server error:", err.message);
     res.status(500).json({ error: "Internal server error" });

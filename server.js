@@ -76,6 +76,16 @@ async function getContact(contactId, token){
   return result;
 }
 
+async function searchContact(phone, token){
+  const result = await axios.get(`https://services.leadconnectorhq.com/contacts?limit=1&query=${phone}&locationId=${LOCATION_ID}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Version: "2021-07-28",
+    },
+  });
+  return result;
+}
+
 const getField = (Array, idPart) =>
   Array?.find(f => f.id.includes(idPart))?.value || "N/A";
 
@@ -149,6 +159,32 @@ app.get("/oustandingvspaid", async (req, res) => {
   }
 });
 
+app.get("/financingbyphonenumber", async (req, res) => {
+  const { phone } = req.query;
+  // if (!contactId) return res.status(400).json({ error: "Missing contactId" });
+
+  try {
+    await refreshAccessToken();
+    const searchResult = await searchContact(phone, accessToken);
+    const contact = searchResult.data.contacts;
+    if (!contact.length) return res.status(404).json({ error: "Contact not found" });
+    await refreshAccessToken();
+    const result = await getContact(contact[0].id, accessToken);
+    const indiviudalContact = searchResult.data.contact;
+    const outstanding = getField(indiviudalContact.customFields, "aql4KeuH4mjDiWeZHUdP");
+    const paid = getField(indiviudalContact.customFields, "xhcczBAHMGdfZnPNtzsm");
+    const minpayment = getField(indiviudalContact.customFields, "zWkqy0y1ojtbE2M18JWF");
+    const paymentlink = getField(indiviudalContact.customFields, "WkJePgVpmP168uEMvtiK");
+    const paidin30days = getField(indiviudalContact.customFields, "6z81Tfv6DDryKLDwWZU2");
+    const minpaymentdue = getField(indiviudalContact.customFields, "2Tcmj8I69XBOJOHENf9l");
+
+  
+    res.json({ id:indiviudalContact.id, firstName:indiviudalContact.firstName, outstanding: outstanding, paid:paid, minpayment:minpayment, paymentlink:paymentlink, paidin30days:paidin30days, minpaymentdue:minpaymentdue });
+  } catch (err) {
+    console.error("Server error:", err.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 // 🔥 UPLOAD endpoint
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {

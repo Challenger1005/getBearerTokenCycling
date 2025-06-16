@@ -170,7 +170,7 @@ app.get("/financingbyphonenumber", async (req, res) => {
     if (!contact.length) return res.status(404).json({ error: "Contact not found" });
     await refreshAccessToken();
     const result = await getContact(contact[0].id, accessToken);
-    const indiviudalContact = searchResult.data.contact;
+    const indiviudalContact = result.data.contact;
     const outstanding = getField(indiviudalContact.customFields, "aql4KeuH4mjDiWeZHUdP");
     const paid = getField(indiviudalContact.customFields, "xhcczBAHMGdfZnPNtzsm");
     const minpayment = getField(indiviudalContact.customFields, "zWkqy0y1ojtbE2M18JWF");
